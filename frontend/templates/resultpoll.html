@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #container{
+            background: linear-gradient(to bottom, #1bd0d0, #79e1ad);
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin: 50px auto;
+            width: 50%;
+        }
+        .questionContainer {
+            background: linear-gradient(to bottom, #1bd0d0, #79e1ad);
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin: 30px 30px;
+          
+        }
+
+        label {
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 15px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+
+        button {
+            padding: 10px 20px;
+            border-radius: 5px;
+            border: none;
+            background-color: #4CAF50;
+            color: white;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+
+<body>
+    
+    <div id="container">
+
+        <form id="questionForm">
+            <label for="questionId">Enter question ID:</label>
+            <input type="text" name="questionId" id="questionId" placeholder="Enter Question ID">
+            <br>
+            <button type="button" id="crc">Submit</button>
+        </form>
+       
+
+    </div>
+
+    <script>
+        document.getElementById('crc').addEventListener('click', myfunction);
+        
+        async function myfunction() {
+            var questionId = document.getElementById('questionId').value;
+            
+            try {
+                var response = await fetch('/resultpoll', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        "questionId": questionId
+                    })
+                });
+                
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                
+                var data = await response.json();
+                updateContainerWithQuestionData(data);
+            } catch (error) {
+                console.error('Error fetching question data:', error);
+            }
+        }
+        
+        function updateContainerWithQuestionData(data) {
+            var container = document.createElement('div');
+            container.className = 'questionContainer';
+        
+            container.style.minWidth = '80vh';
+            container.style.minHeight = '50vh';
+        
+            var optionsHTML = '';
+            data.forEach(option => {
+                optionsHTML += `<p>${option.optionsel}: ${option.count}</p>`;
+            });
+            container.innerHTML = optionsHTML;
+        
+            document.body.appendChild(container);
+        }
+        </script>
+</body>
+</html>

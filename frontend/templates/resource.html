@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resources</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='resource.css') }}">
+    <style>
+        * {
+            box-sizing: border-box;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        #main {
+            height: 100vh;
+        }
+
+        h1 {
+            background-color: rgba(15, 150, 156, 0.7);
+            padding: 15px;
+            color: #fff;
+            text-align: center;
+            margin: 0;
+        }
+
+        #container {
+            margin-top: 50px;
+            margin-left: 100px;
+            width: 60%;
+        }
+
+        #container h2 {
+            font-family: 'Times New Roman', Times, serif;
+            font-size: 25px;
+        }
+
+        #container label {
+            font-weight: 100;
+            font-size: 18px;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+        
+        footer {
+            background-color: #0f0e0e;
+            width: 100%;
+            height: 100px;
+            margin-top: 50px;
+            color: #fff;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="main">
+        <h1>Resources</h1>
+        <div id="container">
+            <label for="description">Description:</label><br>
+            <input type="text" id="description" name="description"><br>
+        
+            <label for="link">Link:</label><br>
+            <input type="text" id="link" name="link">
+            
+            <button id="addResourceBtn">Add Resource</button>
+        </div>
+    </div>
+    <footer>
+        <!-- Footer content goes here -->
+    </footer>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            document.getElementById('addResourceBtn').addEventListener('click', function() {
+                var description = document.getElementById('description').value;
+                var link = document.getElementById('link').value;
+                
+                // Sending form data to Flask backend using fetch API
+                fetch('/resource', {
+                    method: 'POST',
+                    body: new URLSearchParams({
+                        'description': description,
+                        'link': link
+                    }),
+                })
+                .then(response => {
+                    // Handle response if needed (e.g., check status)
+                    if (response.ok) {
+                        console.log('Data sent successfully');
+                    } else {
+                        console.error('Failed to send data');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+            });
+        });
+    </script>
+    
+</body>
+</html>

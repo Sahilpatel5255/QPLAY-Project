@@ -1,0 +1,51 @@
+/* Global Styles */
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+.container {
+  width: 80%;
+  margin: 0 auto;
+}
+
+/* Header Styles */
+header {
+  background-color: #333;
+  color: #fff;
+  padding: 15px 0;
+}
+
+.header-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo h1 {
+  margin: 0;
+}
+
+.user-info p {
+  margin: 0;
+}
+
+/* Main Content Styles */
+.logout {
+  text-align: right;
+  margin-bottom: 20px;
+}
+
+.logout a {
+  color: #fff;
+  text-decoration: none;
+}
+
+.logout a:hover {
+  text-decoration: underline;
+}
+
+.main-content {
+  padding: 20px 0;
+}

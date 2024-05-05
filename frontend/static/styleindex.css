@@ -1,0 +1,102 @@
+*{
+    box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
+   
+}
+#main{
+    height: 100vh;
+}
+
+#nav{
+    width: 100%;
+    height: 80px;
+    display:flex;  
+}
+
+#nav>img{
+    margin-left:100px;
+    margin-right: 0;
+}
+#nav>h1{
+    font-size: 50px;
+    margin-top: 8px;
+    margin-left:0;
+}
+
+#hero{
+    width: 100%;
+    height:100%;
+    display: flex;
+   
+}
+#desc{
+    margin-top: 210px;
+    margin-left: 100px;
+    width: 60%;
+}
+#desc>h2{
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 25px;
+}
+#desc h4{
+    font-weight:100;
+    font-size: 18px;
+}
+
+#hero>img{
+    background-size: cover;
+    margin-top: 100px;
+    width: 650px;
+    height: 500px;
+    margin-right: 60px; 
+}
+
+#button{
+    display: flex;
+    width: 200px;
+    margin-top: -215px;
+    margin-left: 100px;
+    
+}
+#btn{
+    cursor: pointer;
+    text-align: center;
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 25px;
+    margin: 0 auto;
+    width: 100px;
+    border-radius: 5px;
+    color: #fff;
+    background-color: rgb(158, 83, 176);
+    margin-right: 15px;
+    border: none;
+
+  }
+
+  #btn1{
+    cursor: pointer;
+    text-align: center;
+    font-size: 25px;
+    border-radius: 5px;
+    font-family: 'Times New Roman', Times, serif;
+    width: 100px;
+    color: #0f0e0e;
+    background-color: rgb(148, 143, 150);
+    border: none;
+    
+  
+  }
+footer{
+    background-color: #0f0e0e;
+    width: 100%;
+    height: 100px;
+    margin-top: 225px;
+    color: #fff;
+    text-align: center;
+}
+
+#btn #btn1:hover{
+    cursor: pointer;
+    
+    
+}

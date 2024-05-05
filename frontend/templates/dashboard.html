@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Dashboard</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    /* Additional styles for the buttons, background, and header */
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+      background-image: url('background-image.jpg'); /* Replace with your image */
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+      color: #05161A; /* Text color */
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+
+    header {
+      background-color:  linear-gradient(to bottom, #1bd0d0, #79e1ad); /* Header background color */
+      padding: 15px 0;
+      border-radius: 10px
+    }
+
+    .header-content {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo h1 {
+      margin: 0;
+      color: #0F969C; /* Logo color */
+    }
+
+    .user-info p,
+    .logout a {
+      color: #0C7078; /* User info and logout link color */
+      text-decoration: none;
+    }
+
+    .button-container {
+      display: grid;
+      grid-template-columns: repeat(2, auto);
+      grid-gap: 20px;
+      justify-content: center;
+      align-items: center;
+      margin-top: 50px;
+      background-color:  linear-gradient(to bottom, #1bd0d0, #79e1ad); /* Semi-transparent background for the button container */
+      padding: 20px;
+      border-radius: 10px;
+    }
+
+    .dashboard-button {
+      display: block;
+      width: 200px;
+      height: 200px;
+      font-size: 24px;
+      text-align: center;
+      line-height: 200px;
+      border: none;
+      border-radius: 10px;
+      text-decoration: none;
+      color: #fff;
+      background-image: linear-gradient(to right top,  #bb4fd6, #69dfc1, #0fb7c6); /* Gradient background */
+      cursor: pointer;
+      transition: transform 0.3s ease-in-out;
+    }
+
+    .dashboard-button:hover {
+      transform: scale(1.05); /* Increase button size on hover */
+    }
+
+    /* Styles for the result section */
+    .result-section {
+      margin-top: 50px;
+    }
+
+    .result-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+    }
+
+    .result-table th,
+    .result-table td {
+      padding: 10px;
+      text-align: left;
+      border-bottom: 1px solid #ccc;
+    }
+
+    .result-table th {
+      background-color: #0C7078;
+      color: #fff;
+    }
+
+    .result-table .result-btn {
+      background-color: #0F969C;
+      color: #fff;
+      padding: 5px 10px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .result-table .result-btn:hover {
+      background-color: #072E33;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container">
+      <div class="header-content">
+        <div class="logo">
+          <h1>Dashboard</h1>
+        </div>
+        <div class="user-info">
+          <p>Welcome, Teacher</p><!-- Replace "John Doe" with the actual username -->
+          <div class="logout">
+            <a href="/login">Logout</a> <!-- Link to the logout functionality -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <div class="container">
+    <div class="main-content">
+      <div class="button-container">
+        <a href="/plantest" class="dashboard-button">Plan Test</a>
+        <a href="/resultpoll" class="dashboard-button">Live Poll</a>
+        <a href="/resource" class="dashboard-button">Resources</a>
+        <a href="https://mayankleo.github.io/sorting-visualizer/" class="dashboard-button">Visualizer</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Result Section -->
+  <section class="result-section">
+    <div class="container">
+      <h2>Results</h2>
+      <table class="result-table">
+        <thead>
+          <tr>
+            <th>Date</th>
+            <th>Subject</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- Sample row, replace with actual data -->
+          <tr>
+            <td>2023-12-01</td>
+            <td>Mathematics</td>
+            <td>
+              <button class="result-btn" onclick="window.location.href='result.html'">Result</button>
+            </td>
+          </tr>
+          <tr>
+            <td>2023-12-05</td>
+            <td>Science</td>
+            <td>
+              <button class="result-btn" onclick="window.location.href='result.html'">Result</button>
+            </td>
+          </tr>
+          <!-- Add more rows as needed -->
+        </tbody>
+      </table>
+    </div>
+  </section>
+</body>
+</html>

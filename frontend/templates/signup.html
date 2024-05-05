@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Sign Up Page</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='stylelg.css') }}">
+</head>
+<body>
+  <div class="container">
+    <div class="form-container">
+      <form id="signupForm" class="form" action="/signup" method="post">
+        <h2>Sign Up</h2>
+        <div class="form-group">
+          <label for="signup-username">Username</label>
+          <input type="text" id="signup-username" name="signup-username" required>
+        </div>
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input type="email" id="email" name="email" required>
+        </div>
+        <div class="form-group">
+          <label for="signup-password">Password</label>
+          <input type="password" id="signup-password" name="signup-password" required>
+        </div>
+        <div class="form-group">
+          <label for="confirm-password">Confirm Password</label>
+          <input type="password" id="confirm-password" name="confirm-password" required>
+        </div>
+        <button type="submit">Sign Up</button>
+        <p class="switch-text">Already have an account? <a href="/login">Login</a></p>
+      </form>
+    </div>
+  </div>
+</body>
+</html>

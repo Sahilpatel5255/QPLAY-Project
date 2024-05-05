@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Planning</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='planttest.css') }}">
+    <style>
+        /* Additional styles for the buttons */
+        .btn-container {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        button {
+            background-color: #4daea1;
+            color: white;
+            border-radius: 4px;
+            border-color: transparent;
+            cursor: pointer;
+            width: 150px;
+            padding: 12px 20px;
+            margin: 0 10px;
+        }
+
+        button:hover {
+            background-color: #4caf84;
+        }
+
+        /* Additional styles for the dynamically generated containers */
+        .container {
+            width: 80%;
+            /* Adjust width as needed */
+            background-color: #bac91b;
+            /* Light gray background color */
+            border: 1px solid #ddd;
+            /* Border */
+            border-radius: 5px;
+            /* Rounded corners */
+            padding: 20px;
+            /* Padding */
+            margin-bottom: 20px;
+            /* Bottom margin */
+        }
+
+        .question {
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .option {
+            margin-bottom: 5px;
+            cursor: pointer;
+        }
+
+        .option:hover {
+            background-color: #f0f0f0;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="main">
+        <form id="testForm" onsubmit="submitForm(); return false;">
+            <h2>Plan Test</h2>
+            <hr>
+            <div class="fil">
+                <div id="sub">
+                    <p>Subject:</p>
+                    <select name="Subject" id="subject" onchange="updateChapterOptions()" style="width: 200px;"
+                        required>
+                        <option value="nan">Select Any Subject....</option>
+                        <option value="DS">Data Structure</option>
+                        <option value="DBMS">DBMS</option>
+                    </select>
+                </div>
+                <div id="chp">
+                    <p>Chapter:</p>
+                    <select name="Chapter" id="chapter" style="width: 200px; height: 46.67px;" required>
+                        <option value="nan">Select Any chapter....</option>
+                    </select>
+                </div>
+                <div id="numq">
+                    <p>Number of Questions:</p>
+                    <input type="number" id="numQuestions" name="numQuestions" required>
+                </div>
+            </div>
+            <div class="btn-container">
+                <button type="submit">Submit</button>
+                <button type="button" onclick="previewForm()">Preview</button>
+            </div>
+
+            <!-- Dynamically generated containers based on the number of questions -->
+            <div id="containers"></div>
+        </form>
+    </div>
+
+    <script>
+        function updateChapterOptions() {
+            const subjectSelect = document.getElementById('subject');
+            const chapterSelect = document.getElementById('chapter');
+            chapterSelect.innerHTML = ''; // Clear previous options
+
+            const selectedSubject = subjectSelect.value;
+            const chaptersMap = {
+                'DS': ['linklist', 'stack'],
+                'DBMS': ['basics', 'advance']
+            };
+
+            const chapters = chaptersMap[selectedSubject];
+            if (chapters) {
+                chapters.forEach(chapter => {
+                    const option = document.createElement('option');
+                    option.value = chapter;
+                    option.textContent = chapter;
+                    chapterSelect.appendChild(option);
+                });
+            }
+        }
+
+        function previewForm() {
+            var cont = document.getElementById('containers');
+            cont.innerHTML = '';
+
+            // Fetch questions data from the backend
+            fetch('/ques')
+                .then(response => {
+                    if (response.ok) {
+                        return response.json(); // Parse response text
+                    } else {
+                        throw new Error('Failed to fetch questions!');
+                    }
+                })
+                .then(data => {
+                    // Iterate over each question and populate containers
+                    data.forEach((questionData, index) => {
+                        var container = document.createElement('div');
+                        container.classList.add('container');
+
+                        // Display question
+                        var questionElement = document.createElement('div');
+                        questionElement.classList.add('question');
+                        questionElement.textContent = "Question " + (index + 1) + ": " + questionData.question;
+                        container.appendChild(questionElement);
+
+                        // Display options
+                        for (let i = 1; i <= 4; i++) {
+                            var optionElement = document.createElement('div');
+                            optionElement.classList.add('option');
+                            optionElement.textContent = questionData['op' + i];
+                            container.appendChild(optionElement);
+                        }
+
+                        cont.appendChild(container);
+                    });
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+        }
+
+        function submitForm() {
+            const subject = document.getElementById('subject').value;
+            const chapter = document.getElementById('chapter').value;
+            const numQuestions = document.getElementById('numQuestions').value;
+
+            fetch('/plantest', {
+                method: 'post',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    Subject: subject,
+                    Chapter: chapter,
+                    numQuestions: numQuestions
+                })
+            })
+            .then(response => {
+                if (response.ok) {
+                    return response.json(); // Parse response text
+                } else {
+                    throw new Error('Form submission failed!');
+                }
+            })
+            .then(data => {
+                // Display success message
+                alert('Form submitted successfully!');
+
+                // Optionally, reset the form after successful submission
+                document.getElementById('testForm').reset();
+            })
+            .catch(error => {
+                // Display error message
+                console.error('Error:', error);
+            });
+        }
+    </script>
+</body>
+
+</html>

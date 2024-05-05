@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <meta charset="UTF-8">
+    <title>Live Poll</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='livepoll.css') }}">
+    <style>
+        
+        header {
+            background-color: #5dc3b5; /* Set header background color */
+            text-align: left; /* Center align text */
+            padding: 20px 0; /* Add padding for better appearance */
+            margin-bottom: 20px; /* Separate header from other content */
+        }
+
+        #container {
+            background: linear-gradient(to bottom, #1bd0d0, #79e1ad); /* Gradient background for container */
+            padding: 20px; /* Add padding to the container */
+            border-radius: 10px; /* Rounded corners for the container */
+        }
+        
+        #id {       
+            font-size: 18px; 
+            padding: 8px; 
+            width: 200px;
+            font-weight: bold; 
+        }
+        label[for="id"] {
+            font-weight: bold; 
+            font-size: 24px;
+        }
+        #submitBtn {
+    display: block;
+    width: 200px; 
+    padding: 10px; 
+    margin: 20px auto; 
+    font-size: 18px; 
+    border: none;
+    border-radius: 5px;
+    background-color: #0C7078; 
+    color: #fff;
+    cursor: pointer;
+    transition: background-color 0.3s ease-in-out;
+    }
+
+    #submitBtn:hover {
+    background-color: #072E33; /* Change background color on hover */
+    }
+
+
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Live Poll</h1>
+    </header>
+    <div id="main">
+        <div id="container">
+            <label for="id"> Question ID:</label>
+            <input type="text" id="id" name="id">
+            <div class="mcq-options">
+                <div class="mcq-option">
+                    <input type="radio" id="option1" name="option" value="option1">
+                    <label for="option1">Option 1</label>
+                </div>
+                <div class="mcq-option">
+                    <input type="radio" id="option2" name="option" value="option2">
+                    <label for="option2">Option 2</label>
+                </div>
+                <div class="mcq-option">
+                    <input type="radio" id="option3" name="option" value="option3">
+                    <label for="option3">Option 3</label>
+                </div>
+                <div class="mcq-option">
+                    <input type="radio" id="option4" name="option" value="option4">
+                    <label for="option4">Option 4</label>
+                </div>
+            </div>
+            <button type="submit" id="submitBtn">Submit</button>
+        </form>
+        </div>
+    </div>
+    <footer>
+        <p>Footer content here</p>
+    </footer>
+    <script>
+        $(document).ready(function() {
+            $('#submitBtn').click(function(e) {
+                e.preventDefault(); // Prevent the default form submission
+                
+                // Get the values from the form fields
+                var questionId = $('#id').val();
+                var selectedOption = $('input[name=option]:checked').val();
+                
+                // Create a data object to be sent to the Flask backend
+                var data = {
+                    questionId: questionId,
+                    selectedOption: selectedOption
+                };
+    
+                // AJAX POST request to send data to Flask backend
+                $.ajax({
+                    type: 'POST',
+                    url: '/livepoll', // Replace with your Flask endpoint URL
+                    contentType: 'application/json;charset=UTF-8',
+                    data: JSON.stringify(data),
+                    success: function(response) {
+                        // Handle success response from Flask
+                        console.log('Data sent successfully');
+                        alert('Data submitted successfully'); // Display an alert
+                        // Refresh the page and redirect after clicking OK on the alert
+                        window.location.href = '/tkypoll';
+                    },
+                    error: function(error) {
+                        // Handle error response from Flask (if needed)
+                        console.error('Error sending data:', error);
+                        alert('Error submitting data. Please try again.'); // Display an alert for errors
+                    }
+                });
+            });
+        });
+    </script>
+    
+   
+    
+</body>
+</html>
